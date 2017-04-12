@@ -12,13 +12,15 @@ def index(request):
     pw = os.environ.get('RS_PASSWORD')
     redis_connection = StrictRedis(host=ip, port=port, db=0, password=pw)
     r = List(redis=redis_connection, key='rp3:00000000448f5428')
+
     lv = r[-100:-1]  # light value, latest 100 items
     lv.sort()
     cv = lv[40:60]  # calc value, middle 20 items
     cv_avg = reduce(lambda x, y: x + y, cv) / len(cv)
-    is_empty = True if cv_avg < 1500 else False
-    # print(cv_avg, is_empty)
-
+    # TODO : curr time check
+    is_empty = False if cv_avg < 1800 else True
+    print(cv_avg, is_empty)
+ 
     context = {
         'is_empty': is_empty,
     }
