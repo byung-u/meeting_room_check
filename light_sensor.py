@@ -36,7 +36,7 @@ def rc_time(pin_to_circuit):
     # Output on the pin for
     GPIO.setup(pin_to_circuit, GPIO.OUT)
     GPIO.output(pin_to_circuit, GPIO.LOW)
-    time.sleep(1)  # sec
+    time.sleep(0.1)  # sec
 
     # Change the pin back to input
     GPIO.setup(pin_to_circuit, GPIO.IN)
@@ -66,6 +66,7 @@ try:
     r = redis_init()
     # Main loop
     while True:
+        time.sleep(1)  # sec
         current_light = rc_time(pin_to_circuit)
         r.append(current_light)
         print(current_light)
