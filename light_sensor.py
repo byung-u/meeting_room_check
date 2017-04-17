@@ -4,8 +4,8 @@ from redislite import StrictRedis
 from redis_collections import List
 
 import RPi.GPIO as GPIO
-import time
 import os
+import time
 
 __author__ = 'Gus (Adapted from Adafruit)'
 __license__ = "GPL"
@@ -66,10 +66,14 @@ try:
     r = redis_init()
     # Main loop
     while True:
-        time.sleep(1)  # sec
         current_light = rc_time(pin_to_circuit)
-        r.append(current_light)
-        print(current_light)
+        try:
+            r.append(current_light)
+            print(current_light)
+        except Exception as e:
+            print("error: ", e)
+            pass
+        time.sleep(1)  # sec
 except KeyboardInterrupt:
     pass
 finally:
