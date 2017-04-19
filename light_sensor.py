@@ -41,7 +41,10 @@ def rc_time(pin_to_circuit):
     # Change the pin back to input
     GPIO.setup(pin_to_circuit, GPIO.IN)
 
-    # Count until the pin goes high
+    # Light-dependent resistor
+    # When light hits the LDR, its resistance is very low, 
+    # but when it's in the dark its resistance is very high.
+    # -> Count until the pin goes high
     while (GPIO.input(pin_to_circuit) == GPIO.LOW):
         count += 1
     return count
