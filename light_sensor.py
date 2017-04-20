@@ -6,6 +6,7 @@ from redis_collections import List
 import RPi.GPIO as GPIO
 import os
 import time
+from datetime import datetime
 
 __author__ = 'Gus (Adapted from Adafruit)'
 __license__ = "GPL"
@@ -42,7 +43,7 @@ def rc_time(pin_to_circuit):
     GPIO.setup(pin_to_circuit, GPIO.IN)
 
     # Light-dependent resistor
-    # When light hits the LDR, its resistance is very low, 
+    # When light hits the LDR, its resistance is very low,
     # but when it's in the dark its resistance is very high.
     # -> Count until the pin goes high
     while (GPIO.input(pin_to_circuit) == GPIO.LOW):
@@ -58,9 +59,11 @@ def redis_init():
     ip = os.environ.get('RS_HOST')  # RS: raspberry pi
     port = os.environ.get('RS_PORT')
     pw = os.environ.get('RS_PASSWORD')
+    now = datetime.now()
+    time_str = '%4d%02d%02d' % (now.year, now.month, now.day)
 
     redis_connection = StrictRedis(host=ip, port=port, db=0, password=pw)
-    r = List(redis=redis_connection, key='rp3:'+serial_number)
+    r = List(redis=redis_connection, key='rp3:'+serial_number+time_str)
     return r
 
 
