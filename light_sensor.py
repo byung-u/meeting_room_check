@@ -8,9 +8,9 @@ import os
 import time
 from datetime import datetime
 
-__author__ = 'Gus (Adapted from Adafruit)'
+__author__ = 'Byungwoo Jeon'
 __license__ = "GPL"
-__maintainer__ = "pimylifeup.com"
+__maintainer__ = "byngwoo"
 
 GPIO.setmode(GPIO.BOARD)
 
